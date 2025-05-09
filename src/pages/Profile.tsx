@@ -1,145 +1,126 @@
-import { Box } from '@mui/material';
-import { t } from 'i18next';
-import React, { useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import { useAppSelector } from '@base/store';
-import Feed from '@components/feed/Feed';
-import SlidingMenu from '@components/mobile/SlidingMenu';
-import Rightbar from '@components/RightbarContainer';
-import Sidebar from '@components/Sidebar';
-import { selectCurrentUser, selectGoogleInfo, selectSelectedUser } from '@helpers/selectors/APIRequestSelector';
-import { loadingSVG } from '@helpers/utils/SVG';
-
+import { Box, Avatar, Typography, Grid } from '@mui/material';
+import React from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 export default function Profile() {
-  const currentUserGoogleInfo = useAppSelector(selectGoogleInfo);
-  const currentUser = useAppSelector(selectCurrentUser);
-  const selectedUser = useAppSelector(selectSelectedUser);
-  const [isCurrentUserLoaded, setIsCurrentUserLoaded] = useState(false);
-  const [currentProfileImage, setCurrentProfileImage] = useState('');
-  const [currentUserName, setCurrentUserName] = useState('');
-  const [backgroundPicture, setBackgroundPicture] = useState('');
-
-  const currentUserPicture = currentProfileImage || ((currentUser || {}).picture || {})?.medium || '';
-
-  useEffect(() => {
-    if (currentUser && !currentUserGoogleInfo.iss) {
-      setCurrentUserName(`${currentUser.name?.first} ${currentUser.name?.last}`);
-      setCurrentProfileImage(((currentUser || {}).picture || {})?.medium || '');
-    }
-
-    if (currentUserGoogleInfo.iss) {
-      setCurrentProfileImage(currentUserGoogleInfo.picture);
-      setCurrentUserName(currentUserGoogleInfo.name);
-    }
-
-    if (currentUser || currentUserGoogleInfo.iss) {
-      setIsCurrentUserLoaded(true);
-    }
-
-    if (selectedUser.name && selectedUser.picture) {
-      setCurrentProfileImage(selectedUser.picture.medium);
-      setCurrentUserName(`${selectedUser.name?.first} ${selectedUser.name?.last}`);
-    }
-
-    setBackgroundPicture(`https://source.unsplash.com/random/1366x768?v=${Math.random().toFixed(4)}`);
-  }, [currentUser, currentUserGoogleInfo, selectedUser]);
-
-  return isCurrentUserLoaded ? (
-    <Box
-      display="flex"
-      flexDirection="row"
-      justifyContent="start"
-    >
+  return (
+    <Box p={4}>
+      {/* Header: Profile picture + Username + PRs */}
       <Box
         display="flex"
-        className={`${isMobile ? '' : 'flex-[3]'} relative`}
+        alignItems="center"
+        gap={4}
+        mb={4}
       >
-        {isMobile ? <SlidingMenu /> : <Sidebar />}
-      </Box>
+        <Avatar
+          src="https://via.placeholder.com/100"
+          alt="Profile"
+          sx={{ width: 100, height: 100 }}
+        />
 
-      <Box
-        display="flex"
-        flexDirection="column"
-        className="flex-[9]"
-      >
         <Box
+          flex={1}
           display="flex"
           flexDirection="column"
+          justifyContent="center"
+          height={100}
         >
-          <Box
-            display="flex"
-            flexDirection="column"
-            className="relative h-96 w-full overflow-hidden"
-            pb={9}
+          <Typography
+            variant="h2"
+            fontWeight="bold"
+            lineHeight={1}
+            sx={{ position: 'relative', top: '40px' }}
           >
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              position="absolute"
-              className="h-96 w-full"
-              zIndex="-1"
-            >
-              {loadingSVG}
-            </Box>
-
-            <img
-              loading="lazy"
-              className="object-cover h-full w-full"
-              aria-label={t('a11y.currentUserBackgroundImage')}
-              src={backgroundPicture}
-              width="100%"
-              height="100%"
-              alt={t('a11y.currentUserBackgroundImage')}
-            />
-
-            <img
-              loading="lazy"
-              className=" 
-                object-cover left-0 right-0 rounded-full absolute m-auto
-                bottom-0 cursor-pointer w-36 h-36 border-4 white"
-              aria-label={t('a11y.currentUserPicture')}
-              src={currentUserPicture}
-              referrerPolicy="no-referrer"
-              width="100%"
-              height="100%"
-              alt={t('a11y.currentUserPicture')}
-            />
-          </Box>
+            run_roberto
+          </Typography>
 
           <Box
             display="flex"
-            flexDirection="column"
+            flexWrap="wrap"
+            gap={2}
             justifyContent="center"
-            alignItems="center"
           >
-            <h4 className="text-2xl">{currentUserName}</h4>
-
-            <span className="font-light	">{currentUser.location?.city} </span>
-          </Box>
-        </Box>
-
-        <Box
-          display="flex"
-          flexDirection={`${isMobile ? 'column' : 'row'}`}
-        >
-          <Box
-            display="flex"
-            flexDirection="column"
-            className={`${isMobile ? 'order-1' : ''}`}
-          >
-            <Feed />
-          </Box>
-
-          <Box
-            display="flex"
-            flexDirection="column"
-            className={`flex-none w-96 ${isMobile ? 'order-0 w-full' : ''}`}
-          >
-            <Rightbar profile />
+            {[
+              { label: '5K', time: '20:40' },
+              { label: '10K', time: '44:30' },
+              { label: 'Half Marathon', time: '1:47:34' },
+              { label: 'Marathon', time: '—' },
+            ].map((pr, index) => (
+              <Box
+                key={index}
+                p={2}
+                px={3}
+                border="2px solid #ccc"
+                borderRadius="10px"
+                minWidth="130px"
+                textAlign="center"
+              >
+                <Typography
+                  variant="subtitle1"
+                  fontWeight="bold"
+                  sx={{ fontSize: '1rem' }}
+                >
+                  {pr.label}
+                </Typography>
+                <Typography sx={{ fontSize: '1.1rem' }}>{pr.time}</Typography>
+              </Box>
+            ))}
           </Box>
         </Box>
       </Box>
+
+      {/* Posts Grid */}
+      <Grid
+        container
+        spacing={2}
+      >
+        {[...Array(6)].map((_, i) => (
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            key={i}
+          >
+            <Box
+              component="img"
+              src={`https://source.unsplash.com/random/400x400?sig=${i}`}
+              alt={`Post ${i + 1}`}
+              width="100%"
+              borderRadius="8px"
+            />
+          </Grid>
+        ))}
+      </Grid>
+
+      {/* Calendar */}
+      <Box
+        mt={4}
+        width="100%"
+        height="700px"
+        sx={{
+          '& .react-calendar': {
+            width: '100%',
+            height: '100%',
+            fontSize: '1.5rem',
+          },
+          '& .react-calendar__tile': {
+            height: '100px',
+            padding: '20px 0',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          '& .react-calendar__month-view__days': {
+            height: '100%',
+          },
+          '& .react-calendar__month-view__weekdays abbr': {
+            fontSize: '1.1rem',
+          },
+        }}
+      >
+        <Calendar />
+      </Box>
     </Box>
-  ) : null;
+  );
 }

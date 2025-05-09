@@ -12,6 +12,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '@base/store';
 import NavbarMenuElement from '@components/shared/NavbarMenuElement';
 import ProfileLink from '@components/shared/ProfileLink';
@@ -21,14 +22,20 @@ import { selectCloseFriends } from '@helpers/selectors/APIRequestSelector';
 export default function Sidebar() {
   const closeFriends = useAppSelector(selectCloseFriends);
   const { t } = useTranslation();
+
   const navbarElements = [
     {
-      infoText: SideBarElementInfoTexts.FEED,
+      infoText: SideBarElementInfoTexts.MY_ACCOUNT,
       child: (
-        <RssFeed
-          className="mr-4"
-          aria-label={t('a11y.goToFeed')}
-        />
+        <Link
+          to="/myaccount"
+          className="flex items-center"
+        >
+          <GroupSharp
+            className="mr-4"
+            aria-label="Go to My Account"
+          />
+        </Link>
       ),
     },
     {
@@ -41,20 +48,11 @@ export default function Sidebar() {
       ),
     },
     {
-      infoText: SideBarElementInfoTexts.VIDEOS,
-      child: (
-        <VideoCameraBack
-          className="mr-4"
-          aria-label={t('a11y.goToVideos')}
-        />
-      ),
-    },
-    {
-      infoText: SideBarElementInfoTexts.GROUPS,
+      infoText: SideBarElementInfoTexts.KLANS,
       child: (
         <GroupSharp
           className="mr-4"
-          aria-label={t('a11y.goToGroups')}
+          aria-label="Go to Klans"
         />
       ),
     },
@@ -63,7 +61,7 @@ export default function Sidebar() {
       child: (
         <BookmarkSharp
           className="mr-4"
-          aria-label={t('a11y.goToBookMarks')}
+          aria-label={t('a11y.goToBookmarks')}
         />
       ),
     },
@@ -77,20 +75,11 @@ export default function Sidebar() {
       ),
     },
     {
-      infoText: SideBarElementInfoTexts.JOBS,
+      infoText: SideBarElementInfoTexts.YOUR_NEXT_CHALLENGE,
       child: (
         <CasesSharp
           className="mr-4"
-          aria-label={t('a11y.goToJobs')}
-        />
-      ),
-    },
-    {
-      infoText: SideBarElementInfoTexts.EVENTS,
-      child: (
-        <EventAvailableSharp
-          className="mr-4"
-          aria-label={t('a11y.goToEvents')}
+          aria-label="Go to Your Next Challenge"
         />
       ),
     },
@@ -113,13 +102,6 @@ export default function Sidebar() {
           </NavbarMenuElement>
         ))}
       </ul>
-
-      <button
-        className="bg-[#1877f2] text-white w-36 !border-0 p-2.5 rounded-md font-medium"
-        aria-label={t('button.showMore')}
-      >
-        {t('button.showMore')}
-      </button>
 
       <hr className="my-5 mx-0" />
 

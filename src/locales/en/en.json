@@ -1,0 +1,12 @@
+{
+    "components": {
+      "sidebar": {
+        "MY_ACCOUNT": "My Account",
+        "CHATS": "Chats",
+        "KLANS": "Klans",
+        "BOOKMARKS": "Bookmarks",
+        "QUESTIONS": "Questions",
+        "YOUR NEXT CHALLENGE": "Your Next Challenge"
+      }
+    }
+  }

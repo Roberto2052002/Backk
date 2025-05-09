@@ -44,17 +44,13 @@
       "share": "Share"
     },
     "sidebar": {
-      "feed": "Feed",
-      "chats": "Chats",
-      "videos": "Videos",
-      "groups": "Groups",
-      "bookmarks": "Bookmarks",
-      "questions": "Questions",
-      "jobs": "Jobs",
-      "events": "Events",
-      "courses": "Courses",
-      "closeFriends": "Close Friends"
-    },
+    "MY_ACCOUNT": "My Account",
+    "CHATS": "Chats",
+    "KLANS": "Klans",
+    "BOOKMARKS": "Bookmarks",
+    "QUESTIONS": "Questions",
+    "YOUR NEXT CHALLENGE": "Your Next Challenge"
+  },
     "topbar": {
       "timeLine": "Timeline",
       "logOut": "Log Out",

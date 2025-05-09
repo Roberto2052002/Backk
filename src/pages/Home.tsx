@@ -34,7 +34,7 @@ export default function Home() {
             display="flex"
             className="w-[30%] lg:w-[20%]"
           >
-            <Rightbar profile={false} />
+            <Rightbar />
           </Box>
         ) : null}
       </Box>

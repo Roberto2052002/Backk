@@ -22,14 +22,12 @@ export enum PageURLs {
 }
 
 export enum SideBarElementInfoTexts {
-  FEED = 'feed',
-  CHATS = 'chats',
-  VIDEOS = 'videos',
-  GROUPS = 'groups',
-  BOOKMARKS = 'bookmarks',
-  QUESTIONS = 'questions',
-  JOBS = 'jobs',
-  EVENTS = 'events',
+  MY_ACCOUNT = 'MY_ACCOUNT',
+  CHATS = 'CHATS',
+  KLANS = 'KLANS',
+  BOOKMARKS = 'BOOKMARKS',
+  QUESTIONS = 'QUESTIONS',
+  YOUR_NEXT_CHALLENGE = 'YOUR NEXT CHALLENGE',
 }
 
 export enum Types {

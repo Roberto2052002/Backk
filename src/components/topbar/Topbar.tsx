@@ -35,7 +35,7 @@ export default function Topbar() {
     }
   }, [currentUser]);
 
-  return isCurrentUserLoaded ? (
+  return (
     <Box
       display="flex"
       flexDirection="row"
@@ -75,8 +75,7 @@ export default function Topbar() {
             aria-label={t('a11y.goToHome')}
             to="/"
           >
-            {appLogo}
-            <p className={`font-bold text-[#f5f5f5] cursor-pointer ${isMobile ? 'text-sm' : 'text-2xl'}`}>{t('logo.social')}</p>
+            <p className={`font-bold text-[#f5f5f5] cursor-pointer ${isMobile ? 'text-sm' : 'text-2xl'}`}>Just One More Day</p>
           </Link>
         </Box>
       </Box>
@@ -109,38 +108,6 @@ export default function Topbar() {
           flexDirection="row"
           alignItems="center"
         >
-          <Box className="mr-4 cursor-pointer relative">
-            <TopbarPopover
-              title={isFriendRequestExist ? t('components.topbar.popover.friendRequests') : ''}
-              icon={<Person />}
-              children={<FriendRequest />}
-              open={false}
-            />
-            <p
-              className={`top-[-30%] right-[-30%] w-4 h-4 bg-[#ff0000] rounded-full text-white absolute flex justify-center items-center text-xs ${
-                friendRequestCount === 0 ? 'hidden' : ''
-              }`}
-            >
-              {friendRequestCount === 0 ? '' : friendRequestCount}
-            </p>
-          </Box>
-
-          <Box className="mr-4 cursor-pointer relative">
-            <Chat />
-
-            <p className="top-[-30%] right-[-30%] w-4 h-4 bg-[#ff0000] rounded-full text-white absolute flex justify-center items-center text-xs">
-              3
-            </p>
-          </Box>
-
-          <Box className="mr-4 cursor-pointer relative">
-            <Notifications />
-
-            <p className="top-[-30%] right-[-30%] w-4 h-4 bg-[#ff0000] rounded-full text-white absolute flex justify-center items-center text-xs">
-              17
-            </p>
-          </Box>
-
           <Box
             display="flex"
             flexDirection="row"
@@ -153,8 +120,18 @@ export default function Topbar() {
               open={false}
             />
           </Box>
+          <Box className="ml-4">
+            <Link to="/login">
+              <button className="bg-white text-[#1877f2] px-4 py-1 rounded hover:bg-gray-200">Login</button>
+            </Link>
+          </Box>
+          <Box className="ml-4">
+            <Link to="/register">
+              <button className="bg-white text-[#1877f2] px-4 py-1 rounded hover:bg-gray-200">Register</button>
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Box>
-  ) : null;
+  );
 }

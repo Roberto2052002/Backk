@@ -1,6 +1,7 @@
 import { Grid, Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useLocation, Route, Routes } from 'react-router-dom';
+import { useLocation, Route, Routes, Link } from 'react-router-dom';
+
 import i18n from '@base/i18n';
 import { useAppDispatch, useAppSelector } from '@base/store';
 import Alert from '@components/shared/Alert';
@@ -28,6 +29,8 @@ import Home from '@pages/Home';
 import Login from '@pages/Login';
 import Profile from '@pages/Profile';
 import WildCard from '@pages/WildCard';
+import MyAccount from './pages/MyAccount';
+import UploadPage from './pages/UploadPage';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -150,26 +153,16 @@ function App() {
         position="relative"
       >
         {isLoading ? <Loading /> : null}
-        {isLoggedIn && location.pathname !== PageURLs.SIGN_IN ? <Topbar /> : null}
+        {!pathname.startsWith('/profile') && <Topbar />}
 
         <Routes>
           <Route
             path={PageURLs.HOME}
-            element={
-              <ProtectedRoute
-                isProtected={isLoggedIn}
-                component={<Home />}
-              />
-            }
+            element={<Home />}
           />
           <Route
             path={`${PageURLs.PROFILE}/:userId`}
-            element={
-              <ProtectedRoute
-                isProtected={isLoggedIn}
-                component={<Profile />}
-              />
-            }
+            element={<Profile />}
           />
           <Route
             path={PageURLs.SIGN_IN}
@@ -178,6 +171,10 @@ function App() {
           <Route
             path={PageURLs.WILD_CARD}
             element={<WildCard />}
+          />
+          <Route
+            path="/upload"
+            element={<UploadPage />}
           />
         </Routes>
 
@@ -198,6 +195,24 @@ function App() {
           </Box>
         ) : null}
       </Grid>
+      <Link to="/upload">
+        <button
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            backgroundColor: '#1877f2',
+            color: 'white',
+            padding: '12px 20px',
+            borderRadius: '8px',
+            border: 'none',
+            cursor: 'pointer',
+            fontWeight: 'bold',
+          }}
+        >
+          Upload
+        </button>
+      </Link>
     </>
   );
 }
